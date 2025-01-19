@@ -6,7 +6,7 @@
 AVS_FORCEINLINE void* aligned_malloc(size_t size, size_t align)
 {
     void* result = [&]() {
-#if defined(_MSC_VER) || defined(__GNUC__)
+#if defined(_MSC_VER) || defined(__MINGW64_VERSION_MAJOR)
         return _aligned_malloc(size, align);
 #else 
         if (posix_memalign(&result, align, size))
@@ -21,7 +21,7 @@ AVS_FORCEINLINE void* aligned_malloc(size_t size, size_t align)
 
 AVS_FORCEINLINE void aligned_free(void* ptr)
 {
-#if defined(_MSC_VER) || defined(__GNUC__)
+#if defined(_MSC_VER) || defined(__MINGW64_VERSION_MAJOR)
     _aligned_free(ptr);
 #else 
     free(ptr);
